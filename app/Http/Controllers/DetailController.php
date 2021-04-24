@@ -50,23 +50,23 @@ class DetailController extends Controller
             return redirect(url('/'));
         }
     }
-
-    public function edit(Detail $detail)
+   
+    public function update(Request $request, Detail $detail, $id)
     {
-        //
-    }
-
-    public function update(Request $request, Detail $detail, $id )
-    {
+        // dd($request);
         $update = Detail::findOrFail($id);
-        if($request->signed == "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2aWV3Qm94PSIwIDAgNDAwIDIwMCIgd2lkdGg9IjQwMCIgaGVpZ2h0PSIyMDAiPjwvc3ZnPg=="){
+        if($request->signed == null){
             return redirect()->back()->with('status','Form belum ditandatangani');
         }else{
+            $data_uri = $request->signed;
+            $encoded_image = explode(",", $data_uri)[1];
+            $decoded_image = base64_decode($encoded_image);
+            $nama_file = uniqid().".png";
+            $file = file_put_contents($nama_file, $decoded_image);
+            
             $update->update(['ttd'=>$request->signed]);
-    
             return redirect()->back();
         }
-
     }
 
     public function destroy(Detail $detail)
