@@ -53,24 +53,12 @@ class DetailController extends Controller
    
     public function update(Request $request, Detail $detail, $id)
     {
-        // dd($request);
         $update = Detail::findOrFail($id);
         if($request->signed == null){
             return redirect()->back()->with('status','Form belum ditandatangani');
-        }else{
-            $data_uri = $request->signed;
-            $encoded_image = explode(",", $data_uri)[1];
-            $decoded_image = base64_decode($encoded_image);
-            $nama_file = uniqid().".png";
-            $file = file_put_contents($nama_file, $decoded_image);
-            
+        }else{         
             $update->update(['ttd'=>$request->signed]);
             return redirect()->back();
         }
-    }
-
-    public function destroy(Detail $detail)
-    {
-        //
-    }
+    } 
 }
