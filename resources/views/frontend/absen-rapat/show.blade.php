@@ -89,7 +89,7 @@
             </div>
             <div class="mb-2">
               <label>Tanda Tangan</label>
-              <div id="sig"></div>            
+              <canvas id="sig" class="mx-auto"></canvas>            
               <textarea id="signed" name="signed" style="display: none"></textarea>
             </div>
             <div>
