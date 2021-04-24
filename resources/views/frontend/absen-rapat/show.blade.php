@@ -89,7 +89,7 @@
             </div>
             <div class="mb-2">
               <label>Tanda Tangan</label>
-              <canvas id="sig" class="mx-auto"></canvas>            
+              <div id="sig"></div>            
               <textarea id="signed" name="signed" style="display: none"></textarea>
             </div>
             <div>
@@ -115,10 +115,11 @@
 
   <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
   <script src="{{asset('js/jquery.signature.js')}}"></script>
- 
+  <script src="https://raw.githubusercontent.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.min.js"></script>
+  
   <script type="text/javascript">
   $(document).ready(function(){
-    const sig = $('#sig').signature({syncField: '#signed', syncFormat:'PNG'});
+    var sig = $('#sig').signature({syncField: '#signed', syncFormat:'PNG'});
       
       $('#clear').click(function(e) {
         e.preventDefault();
