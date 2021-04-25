@@ -4,11 +4,12 @@
 
 @section('style')
 <style>
-#signed{
-  /* width : 320px;
-  height: 200px; */
+.signature{
   width : 100%;
   height: 200px;
+}
+
+#signed{
   touch-action: none;
   border: 1px solid;
   background: #ddded9;
@@ -99,8 +100,8 @@
                 <div class="form-control">
                   <label>Tanda Tangan</label>
                 </div>
-                <div class="form-control text-center">
-                  <canvas id="signed" name="signed"></canvas>
+                <div class="form-control text-center signature py-auto">
+                  <canvas id="signed" name="signed">
                   <textarea id="ttd" name="ttd" style="display:none"></textarea> 
                 </div>
               </div>
