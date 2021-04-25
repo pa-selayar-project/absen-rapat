@@ -5,7 +5,9 @@
 @section('style')
 <style>
 #signed{
-  width : 400px;
+  /* width : 320px;
+  height: 200px; */
+  width : 100%;
   height: 200px;
   touch-action: none;
   border: 1px solid;
@@ -93,10 +95,14 @@
               </table>                
             </div>
             <div class="mb-2">
-              <label>Tanda Tangan</label>
-              <div class="text-center mt-2">
-                <canvas id="signed" name="signed"></canvas>
-                <textarea id="ttd" name="ttd" style="display:none"></textarea> 
+              <div class="form-group">
+                <div class="form-control">
+                  <label>Tanda Tangan</label>
+                </div>
+                <div class="form-control text-center">
+                  <canvas id="signed" name="signed"></canvas>
+                  <textarea id="ttd" name="ttd" style="display:none"></textarea> 
+                </div>
               </div>
             </div>
             <div>
