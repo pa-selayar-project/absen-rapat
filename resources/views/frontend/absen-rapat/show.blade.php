@@ -3,10 +3,15 @@
 @section('title','Absensi Rapat')
 
 @section('style')
-  <link rel="stylesheet" href="{{asset('css/jquery.signature.css')}}">
-  <style>
-  .kbw-signature { width: 400px; height: 200px; }
-  </style>
+<style>
+#signed{
+  width : 400px;
+  height: 200px;
+  touch-action: none;
+  border: 1px solid;
+  background: #ddded9;
+}
+</style>
 @endsection
 
 @section('isi')
@@ -89,8 +94,10 @@
             </div>
             <div class="mb-2">
               <label>Tanda Tangan</label>
-              <div id="sig"></div>            
-              <textarea id="signed" name="signed" style="display: none"></textarea>
+              <div class="text-center mt-2">
+                <canvas id="signed" name="signed"></canvas>
+                <textarea id="ttd" name="ttd" style="display:none"></textarea> 
+              </div>
             </div>
             <div>
               <button id="clear">Clear</button>
@@ -114,29 +121,33 @@
   <script src="{{asset('vendors/fontawesome/all.min.js')}}"></script>
 
   <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
-  <script src="{{asset('js/jquery.signature.js')}}"></script>
-  <script src="https://raw.githubusercontent.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.min.js"></script>
+  <script src="{{asset('js/signature.js')}}"></script>
+ 
   
   <script type="text/javascript">
   $(document).ready(function(){
-    var sig = $('#sig').signature({syncField: '#signed', syncFormat:'PNG'});
+    var signaturePad = new SignaturePad(document.getElementById('signed'));
       
-      $('#clear').click(function(e) {
-        e.preventDefault();
-        sig.signature('clear');
-      });
+    $('#clear').on('click', function(e) {
+      e.preventDefault();
+      signaturePad.clear();
+    });
       
     $('.tombol_sign').on('click', function(){
       const id = $(this).data('id'),
             nama = $(this).data('nama'),
             jabatan = $(this).data('jabatan');
-
+      $('form').attr('action', id);
       $('#nama').html(nama);
       $('#jabatan').html(jabatan);
-      $('form').attr('action', `{{url('absen-rapat/`+ id +`')}}`);
-      sig.signature('clear');
-      $('#signed').val('');
-    }); 
+      signaturePad.clear();
+    });
+
+    $('form').on('submit', function(e){
+      e.preventDefault();
+      $('#ttd').val(signaturePad.toDataURL('image/png'));  
+      e.currentTarget.submit();
+    });   
   });  
   </script>
 @endsection
